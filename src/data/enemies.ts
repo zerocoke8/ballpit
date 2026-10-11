@@ -1,0 +1,156 @@
+import type { EnemyDef } from '../types';
+
+// hp는 스테이지 0 기준(스테이지 hpMul 곱해짐), 공격 damage는 stage.dmgMul 곱해짐.
+// 몸에 닿으면 피해가 아니라 즉시 패배라(CombatSim lostReason 'contact') 접촉 피해 수치는 없다.
+const ENEMY_LIST: EnemyDef[] = [
+  {
+    id: 'soldier',
+    name: '태엽 병정',
+    sprite: 'enemy_soldier',
+    w: 1,
+    h: 1,
+    hp: 25,
+    gold: 0.15,
+    dropChance: 0.01,
+  },
+  {
+    id: 'block',
+    name: '블록 골렘',
+    sprite: 'enemy_block',
+    w: 1,
+    h: 1,
+    hp: 60,
+    gold: 0.4,
+    dropChance: 0.01,
+  },
+  {
+    id: 'dartgun',
+    name: '다트총 병정',
+    sprite: 'enemy_dartgun',
+    w: 1,
+    h: 1,
+    hp: 30,
+    gold: 0.5,
+    dropChance: 0.02,
+    attack: {
+      kind: 'aimed',
+      interval: 3.2,
+      jitter: 1.5,
+      projSpeed: 260,
+      damage: 8,
+      count: 1,
+      spreadDeg: 0,
+      sprite: 'shot_dart',
+      radius: 12,
+    },
+  },
+  {
+    id: 'robot',
+    name: '깡통 로봇',
+    sprite: 'enemy_robot',
+    w: 1,
+    h: 1,
+    hp: 40,
+    gold: 0.5,
+    dropChance: 0.02,
+    attack: {
+      kind: 'straight',
+      interval: 2.6,
+      jitter: 1.2,
+      projSpeed: 300,
+      damage: 8,
+      count: 1,
+      spreadDeg: 0,
+      sprite: 'shot_bolt',
+      radius: 12,
+    },
+  },
+  {
+    id: 'jack',
+    name: '깜짝 상자',
+    sprite: 'enemy_jack',
+    w: 1,
+    h: 1,
+    hp: 34,
+    gold: 0.5,
+    dropChance: 0.02,
+    attack: {
+      kind: 'spread',
+      interval: 3.5,
+      jitter: 1.5,
+      projSpeed: 240,
+      damage: 6,
+      count: 3,
+      spreadDeg: 24,
+      sprite: 'shot_spring',
+      radius: 13,
+    },
+  },
+  {
+    id: 'balloon',
+    name: '풍선 강아지',
+    sprite: 'enemy_balloon',
+    w: 1,
+    h: 1,
+    hp: 12,
+    gold: 0.8,
+    dropChance: 0.08,
+  },
+  {
+    id: 'teddy',
+    name: '화난 곰인형',
+    sprite: 'enemy_teddy',
+    w: 2,
+    h: 2,
+    hp: 260,
+    gold: 3,
+    dropChance: 0.5,
+    attack: {
+      kind: 'aimed',
+      interval: 2.4,
+      jitter: 1.0,
+      projSpeed: 280,
+      damage: 10,
+      count: 1,
+      spreadDeg: 0,
+      sprite: 'shot_dart',
+      radius: 14,
+    },
+  },
+  {
+    id: 'boss_robot',
+    name: '장난감 대왕 로봇',
+    sprite: 'enemy_boss_robot',
+    w: 4,
+    h: 3,
+    // 체력 2050 → 1100 (× st5 6.2 = 6,820): 냉기가 공격을 멈추지 않게 바뀌어 보스가 보스전 내내 쏘고,
+    // 보스 위에서 덜그럭거리는 공의 연타 피해가 줄어(BOSS_REHIT_*) 같은 체력이면 얼음 없는 빌드가 방어선 전에 못 잡는다.
+    hp: 1100,
+    gold: 20,
+    dropChance: 1,
+    boss: true,
+    // 부채꼴 5발 50°(발 사이 12.5°): 플레이어 높이에서 발 사이 ≈ 0.22 × 세로 거리 d. 틈으로 지나가려면 76 px
+    // (톱니 지름 36 + 플레이어 지름 40) 넘게 벌어져야 하므로 d > 약 340 px(보스가 아직 높을 때)만 틈 사이로,
+    // 그보다 가까우면 옆으로(조준선에서 0.47d + 38 px) 빠져나간다. 7발 70°는 폭이 필드보다 넓어 틈 사이로만 피할 수 있었다.
+    // 냉기 중에도 쏜다(엘리트·보스는 냉기 저항 — 타이머가 CHILL_ATTACK_RATE_RESIST 속도로 흐름). 예전엔 냉기 중 멈춰서
+    // 얼음이 있으면 보스가 거의 못 쏘고 없으면 한 발 34로 HP가 녹았다 → 간격 1.7 → 2.4초(대신 냉기에도 멈추지 않음),
+    // 한 발 10 → 3 (st5 × 4.0 = 12). 프로브 회피 AI는 이 부채꼴을 볼리마다 0.7~0.8발 맞는다(가만히 0.8~0.9) — 사실상 피할 수 없는
+    // 소모로 계산되므로 한 발을 작게 둔다.
+    // 속도 230 → 200: 이동이 걷기(420 px/s, 가속 0.1초)로 바뀐 뒤, 깊이 내려온 보스(아래 끝이 플레이어 약 1.5칸 위)가 쏜 부채꼴은
+    // 반응 0.25초인 이상적인 회피도 옆으로 다 빠져나가지 못했다(st5 판당 최대 1.3발, 3초 최대 19%). 200이면 이동 바꾸기 전 수준
+    // (판당 최대 0.7발, 3초 최대 10%) — docs/DESIGN.md '이동 — 걷기·자유 이동·접촉 즉사'.
+    attack: {
+      kind: 'spread',
+      interval: 2.4,
+      jitter: 0.6,
+      projSpeed: 200,
+      damage: 3,
+      count: 5,
+      spreadDeg: 50,
+      sprite: 'shot_gear',
+      radius: 18,
+    },
+  },
+];
+
+export const ENEMIES: Record<string, EnemyDef> = Object.fromEntries(ENEMY_LIST.map((d) => [d.id, d]));

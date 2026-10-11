@@ -1,0 +1,164 @@
+{
+  "bag_close": [
+    "bag_close_1.mp3"
+  ],
+  "bag_expand": [
+    "bag_expand_1.mp3"
+  ],
+  "bag_open": [
+    "bag_open_1.mp3"
+  ],
+  "boss_appear": [
+    "boss_appear_1.mp3"
+  ],
+  "boss_kill": [
+    "boss_kill_1.mp3"
+  ],
+  "bounce_wall": [
+    "bounce_wall_1.mp3",
+    "bounce_wall_2.mp3"
+  ],
+  "coin": [
+    "coin_1.mp3",
+    "coin_2.mp3"
+  ],
+  "combo": [
+    "combo_1.mp3"
+  ],
+  "danger": [
+    "danger_1.mp3"
+  ],
+  "defeat": [
+    "defeat_1.mp3"
+  ],
+  "elem_fire": [
+    "elem_fire_1.mp3"
+  ],
+  "elem_ice": [
+    "elem_ice_1.mp3"
+  ],
+  "elem_zap": [
+    "elem_zap_1.mp3",
+    "elem_zap_2.mp3"
+  ],
+  "enemy_shoot_bolt": [
+    "enemy_shoot_bolt_1.mp3"
+  ],
+  "enemy_shoot_dart": [
+    "enemy_shoot_dart_1.mp3"
+  ],
+  "enemy_shoot_gear": [
+    "enemy_shoot_gear_1.mp3"
+  ],
+  "enemy_shoot_spring": [
+    "enemy_shoot_spring_1.mp3"
+  ],
+  "explode": [
+    "explode_1.mp3",
+    "explode_2.mp3"
+  ],
+  "fire_duck": [
+    "fire_duck_1.mp3",
+    "fire_duck_2.mp3"
+  ],
+  "fire_fish": [
+    "fire_fish_1.mp3",
+    "fire_fish_2.mp3"
+  ],
+  "fire_hairball": [
+    "fire_hairball_1.mp3",
+    "fire_hairball_2.mp3"
+  ],
+  "fire_sock": [
+    "fire_sock_1.mp3"
+  ],
+  "fire_toaster": [
+    "fire_toaster_1.mp3"
+  ],
+  "fire_watermelon": [
+    "fire_watermelon_1.mp3"
+  ],
+  "fire_whoopee": [
+    "fire_whoopee_1.mp3",
+    "fire_whoopee_2.mp3"
+  ],
+  "fire_yuzu": [
+    "fire_yuzu_1.mp3",
+    "fire_yuzu_2.mp3"
+  ],
+  "heal": [
+    "heal_1.mp3"
+  ],
+  "hit_heavy": [
+    "hit_heavy_1.mp3",
+    "hit_heavy_2.mp3"
+  ],
+  "hit_toy": [
+    "hit_toy_1.mp3",
+    "hit_toy_2.mp3",
+    "hit_toy_3.mp3"
+  ],
+  "item_drop": [
+    "item_drop_1.mp3"
+  ],
+  "item_pick": [
+    "item_pick_1.mp3"
+  ],
+  "item_place": [
+    "item_place_1.mp3"
+  ],
+  "item_rotate": [
+    "item_rotate_1.mp3"
+  ],
+  "kill_elite": [
+    "kill_elite_1.mp3"
+  ],
+  "kill_pop": [
+    "kill_pop_1.mp3",
+    "kill_pop_2.mp3",
+    "kill_pop_3.mp3"
+  ],
+  "merge_evolve": [
+    "merge_evolve_1.mp3"
+  ],
+  "merge_tier": [
+    "merge_tier_1.mp3"
+  ],
+  "player_hurt": [
+    "player_hurt_1.mp3",
+    "player_hurt_2.mp3"
+  ],
+  "split": [
+    "split_1.mp3"
+  ],
+  "stage_clear": [
+    "stage_clear_1.mp3"
+  ],
+  "stage_start": [
+    "stage_start_1.mp3"
+  ],
+  "ui_back": [
+    "ui_back_1.mp3"
+  ],
+  "ui_error": [
+    "ui_error_1.mp3"
+  ],
+  "ui_lock": [
+    "ui_lock_1.mp3"
+  ],
+  "ui_purchase": [
+    "ui_purchase_1.mp3"
+  ],
+  "ui_reroll": [
+    "ui_reroll_1.mp3"
+  ],
+  "ui_sell": [
+    "ui_sell_1.mp3"
+  ],
+  "ui_tap": [
+    "ui_tap_1.mp3"
+  ],
+  "victory_run": [
+    "victory_run_1.mp3"
+  ]
+}
